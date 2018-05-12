@@ -4,6 +4,10 @@ import { StyleSheet, Text, View } from 'react-native';
 export default class Question extends React.Component {
   static navigationOptions = {
     headerTitle: "Question?"};
+  constructor(props){
+    super(props);
+    debugger;
+  }
   render() {
     return (
       <View style={styles.container}>

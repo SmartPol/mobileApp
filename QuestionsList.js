@@ -34,6 +34,21 @@ export default class QuestionsList extends React.Component {
     this.getData();
   }
 
+  getResponse(id){
+    return this.state.response.filter(function(item){return item.id === id})
+                       .map(function(item){return item.description})[0];
+  }
+
+  getAnswers(id){
+    return this.state.response.filter(function(item){return item.id === id})
+                       .map(function(item){return item.answers})[0];
+  }
+
+  getComments(id){
+    return this.state.response.filter(function(item){return item.id === id})
+                       .map(function(item){return item.comments})[0];
+  }
+
   getData() {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const url = 'https://smart-pol-api.herokuapp.com/';
@@ -51,22 +66,26 @@ export default class QuestionsList extends React.Component {
     .then(response => response.json())
     .then(data => {
       var response = data.data.posts;
-      this.setState({data: ds.cloneWithRows(response.map(function(item){
-        return item.description;
+      this.setState(
+       {response: response,
+        data: ds.cloneWithRows(response.map(function(item){
+        return item.id;
       }))});
       console.log('Here is the data: ', response);
     });
   }
 
   render() {
+    debugger;
     return (
       <View style={styles.container}>
         <ListView style={{marginTop: 10}}
                   dataSource={this.state.data}
                   renderRow={(rowData) =>
-                     <TouchableOpacity onPress={ () => {console.log(rowData);}>
+                     <TouchableOpacity onPress={ () => {this.props.navigation.navigate('Question', {answers: this.getAnswers(rowData),
+                                                                                                    comments: this.getComments(rowData)})}}>
                       <Text style={{marginLeft: 20,
-                                    height: 50}}>{rowData}</Text>
+                                    height: 50}}>{this.getResponse(rowData)}</Text>
                      </TouchableOpacity>}/>
         <Footer props={this.props}/>
       </View>
