@@ -4,6 +4,7 @@ import QuestionsList from "./QuestionsList";
 import Achievements from "./Achievements";
 import Question from "./Question";
 import { createStackNavigator } from 'react-navigation';
+import NewQuestion from "./NewQuestion";
 
 class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ export default createStackNavigator(
     QuestionsList: QuestionsList,
     Question: Question,
     Achievements: Achievements,
+    NewQuestion: NewQuestion
   },
   {
     initialRouteName: 'QuestionsList'
