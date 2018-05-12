@@ -20,7 +20,8 @@ export default class NewQuestion extends React.Component {
     }
 
     handlerPress() {
-        const query = { "query": 'mutation {createPost (title:"laura", description:"lauraDescr", insideOlny:false, type: QUESTION, userId:1){id}}' };
+        const query = { "query": "mutation {createPost (title: \"laura2222\", description: \"lauraDescr2222\", insideOnly: false, type: QUESTION, userId: 1){id title}}", 
+        "operationName":null,"variable":null};
         const url = 'https://smart-pol-api.herokuapp.com/';
         fetch(url, {
             method: 'POST',
