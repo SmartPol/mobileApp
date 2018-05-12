@@ -76,13 +76,13 @@ export default class QuestionsList extends React.Component {
   }
 
   render() {
-    debugger;
     return (
       <View style={styles.container}>
         <ListView style={{marginTop: 10}}
                   dataSource={this.state.data}
                   renderRow={(rowData) =>
-                     <TouchableOpacity onPress={ () => {this.props.navigation.navigate('Question', {answers: this.getAnswers(rowData),
+                     <TouchableOpacity onPress={ () => {this.props.navigation.navigate('Question', {question: this.getResponse(rowData),
+                                                                                                    answers: this.getAnswers(rowData),
                                                                                                     comments: this.getComments(rowData)})}}>
                       <Text style={{marginLeft: 20,
                                     height: 50}}>{this.getResponse(rowData)}</Text>
