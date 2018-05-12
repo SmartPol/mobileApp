@@ -6,17 +6,36 @@ export default class NewQuestion extends React.Component {
     static navigationOptions = {
         headerTitle: "Add Question"
     };
+
+    handlerPress() {
+
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
                 <TextInput
-                    style={{ height: 40 }}
                     placeholder="Summary..."
-
+                    multiline={true}
+                    numberOfLines={5}
+                    editable
                 />
-      </View>
+                <TextInput
+                    placeholder="Description..."
+                    multiline={true}
+                    numberOfLines={5}
+                    editable={true}
+                />
+                <Button
+                    title='Save'
+                    style={{ fontSize: 20, color: 'blue' }}
+                    styleDisabled={{ color: 'grey' }}
+                    onPress={() =>{this.handlerPress()}}>
+                </Button>
+            </View>
         );
     }
+
 }
 
 const styles = StyleSheet.create({

@@ -47,7 +47,7 @@ export default class QuestionsList extends React.Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     const url = 'https://smart-pol-api.herokuapp.com/';
     const query = {
-      "query": "{posts {id title description totalVotes insideOnly type answers {id description created} comments {id description}}}",
+      "query": "{posts {id title description totalVotes insideOnly type answers {id description} comments {id description}}}",
       "operationName": null,
       "variables": null
     };
@@ -75,7 +75,7 @@ export default class QuestionsList extends React.Component {
 
   filterSearch(text) {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    const newData = this.state.response.filter(function (item) {
+    const newData = (this.state.response || []).filter(function (item) {
       const itemData = item.description.toUpperCase()
       const textData = text.toUpperCase()
       return itemData.indexOf(textData) > -1
