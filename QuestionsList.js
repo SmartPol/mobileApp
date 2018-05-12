@@ -11,7 +11,7 @@ import Footer from "./Footer";
 
 
 export default class QuestionsList extends React.Component {
- 
+
   constructor() {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -67,26 +67,26 @@ export default class QuestionsList extends React.Component {
 
   filterSearch(text){
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    const newData = data.filter(function(item){
+    const newData = this.state.response.filter(function(item){
         const itemData = item.description.toUpperCase()
         const textData = text.toUpperCase()
         return itemData.indexOf(textData) > -1
-    });
+    }).map(function(item){return item.id;});
     this.setState({
         data: ds.cloneWithRows(newData),
     })
 }
   render() {
+
     return (
       <View style={styles.container}>
-      View style={{flexDirection: "row"}}>
-      <Image style={{flex: 1, width: 25, height: 25}} source={require('./img/search-icon.png')}/>
-      <TextInput style={{flex: 10, height: 25, fontSize: 16, marginTop: 5}}
-                 onChangeText={(text) => {this.filterSearch(text)}}
-                 onSubmitEditing={() => console.log("done")}
-                 placeholder= "Search...">
-      </TextInput>
-    </View>
+        <View style={{flexDirection: "row"}}>
+          <Image style={{flex: 1, width: 25, height: 25}} source={require('./img/search-icon.png')}/>
+          <TextInput style={{flex: 10, height: 25, fontSize: 16, marginTop: 5}}
+                     onChangeText={(text) => {this.filterSearch(text)}}
+                     onSubmitEditing={() => console.log("done")}
+                     placeholder= "Search..."/>
+        </View>
         <ListView style={{marginTop: 10}}
                   dataSource={this.state.data}
                   renderRow={(rowData) =>

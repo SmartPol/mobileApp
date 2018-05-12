@@ -18,7 +18,7 @@ export default class Question extends React.Component {
             <TouchableOpacity onPress={ () => console.log("Upvote")}>
               <Image style={{width: 30, height: 25}} source={require('./img/up.png')} resizeMode={"stretch"}/>
             </TouchableOpacity>
-            <Text style={{fontSize: 20, textDecoration: "bold", marginTop: 5, marginBottom: 5}}>2</Text>
+            <Text style={{fontSize: 20, fontWeight: "bold", marginTop: 5, marginBottom: 5}}>2</Text>
             <TouchableOpacity onPress={ () => console.log("Downvote")}>
               <Image style={{width: 30, height: 25}} source={require('./img/down.png')} resizeMode={"stretch"}/>
             </TouchableOpacity>
