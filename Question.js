@@ -2,10 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class Question extends React.Component {
+  static navigationOptions = {
+    headerTitle: "Question?"};
   render() {
     return (
       <View style={styles.container}>
-        <Text>This is Achivements page</Text>
+        <Text>This is Question page</Text>
       </View>
     );
   }
