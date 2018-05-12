@@ -25,34 +25,56 @@ export default class QuestionsList extends React.Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(['Question 1',
-                                    'Question 2',
-                                    'Question 3',
-                                    'Question 4',
-                                    'Question 5',
-                                    'Question 6',
-                                    'Question 7',
-                                    'Question 8',
-                                    'Question 9',
-                                    'Question 10',
-                                    'Question 11']),
+      data: ds.cloneWithRows([])
     };
+
   }
+
+  componentWillMount(){
+    this.getData();
+  }
+
+  getData() {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const url = 'https://smart-pol-api.herokuapp.com/';
+    const query = {"query": "{posts {id title description totalVotes insideOnly type answers {id description created} comments {id description}}}",
+                   "operationName": null,
+                   "variables": null};
+
+
+    fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(query),
+      mode: "no-cors"
+    })
+    .then(response => response.json())
+    .then(data => {
+      var response = data.data.posts;
+      this.setState({data: ds.cloneWithRows(response.map(function(item){
+        return item.description;
+      }))});
+      console.log('Here is the data: ', response);
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <ListView style={{marginTop: 10}}
-                  dataSource={this.state.dataSource}
+                  dataSource={this.state.data}
                   renderRow={(rowData) =>
-                    <TouchableOpacity onPress={ () => this.props.navigation.navigate('Question')}>
+                     <TouchableOpacity onPress={ () => {console.log(rowData);}>
                       <Text style={{marginLeft: 20,
                                     height: 50}}>{rowData}</Text>
-                    </TouchableOpacity>}/>
+                     </TouchableOpacity>}/>
         <Footer props={this.props}/>
       </View>
     );
   }
 }
+
+// this.props.navigation.navigate('Question')
 
 const styles = StyleSheet.create({
   container: {
