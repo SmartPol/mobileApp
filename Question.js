@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
-import Sound from 'react-native-sound'
+
+import { Constants, Speech } from 'expo';
 class Voting extends React.Component {
   render() { return(
     <View style={{flexDirection: "column", width: 50, marginTop: 10, marginLeft: 5, alignItems: "center"}}>
@@ -23,14 +24,8 @@ export default class Question extends React.Component {
                   comments: this.props.navigation.state.params.comments,
                 translate: "Translate"}
   }
-  playTrack = () => {
-    const track = new Sound('https://github.com/SmartPol/sound/blob/master/sound.mpeg?raw=true', null, (e) => {
-      if (e) {
-        console.log('error loading track:', e)
-      } else {
-        track.play()
-      }
-    })
+  _speak = () => {
+    Speech.speak("Hello word");
   }
 
   render() {
@@ -51,7 +46,7 @@ export default class Question extends React.Component {
           {this.state.answers.map(function(item){ return <View style={{flexDirection: "row"}}><Voting/><Text key={item.id} style={{fontSize: 16, marginTop: 15}}>{item.description}</Text></View>})}
         </View>
         <View>
-          <Button onPress={this.playTrack}  title={this.state.translate}></Button>
+          <Button onPress={this._speak}  title={this.state.translate}></Button>
         </View>
       </View>
      
