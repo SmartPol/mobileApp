@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Button } from 'react-native';
 
-import { Constants, Speech } from 'expo';
+
 class Voting extends React.Component {
   render() { return(
     <View style={{flexDirection: "column", width: 50, marginTop: 10, marginLeft: 5, alignItems: "center"}}>
@@ -41,11 +41,6 @@ export default class Question extends React.Component {
         </View>
         <View style={{marginLeft: 20}}>
           {this.state.answers.map(function(item){ return <View style={{flexDirection: "row"}}><Voting/><Text key={item.id} style={{fontSize: 16, marginTop: 15}}>{item.description}</Text></View>})}
-        </View>
-        <View>
-          <Button onPress={ () => {
-            Speech.speak("Hello word 2");
-          }}  title={this.state.translate}></Button>
         </View>
       </View>
      
