@@ -30,7 +30,7 @@ export default class QuestionsList extends React.Component {
 
   getResponse(id) {
     return this.state.response.filter(function (item) { return item.id === id })
-      .map(function (item) { return item.description })[0];
+      .map(function (item) { return item.title })[0];
   }
 
   getAnswers(id) {
@@ -43,9 +43,14 @@ export default class QuestionsList extends React.Component {
       .map(function (item) { return item.comments })[0];
   }
 
+  getQuestionDescription(id) {
+    return this.state.response.filter(function (item) { return item.id === id })
+      .map(function (item) { return item.description })[0];
+  }
+
   getData() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    const url = 'https://smart-pol-api.herokuapp.com/';
+    const url = 'https://smart-pol-api.herokuapp.com/api';
     const query = {
       "query": "{posts {id title description totalVotes insideOnly type answers {id description} comments {id description}}}",
       "operationName": null,
@@ -105,7 +110,8 @@ export default class QuestionsList extends React.Component {
           renderRow={(rowData) =>
             <TouchableOpacity onPress={() => {
               this.props.navigation.navigate('Question', {
-                question: this.getResponse(rowData),
+                question: {title: this.getResponse(rowData),
+                           description: this.getQuestionDescription(rowData)},
                 answers: this.getAnswers(rowData),
                 comments: this.getComments(rowData)
               })
