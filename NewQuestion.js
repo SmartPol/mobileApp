@@ -12,7 +12,7 @@ export default class NewQuestion extends React.Component {
             title: '',
             description: '',
             insideOnly: false,
-            type: 'QUESTION',
+            type: 'ARTICLE',
             user_id: 1
         };
 
