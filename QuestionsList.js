@@ -48,11 +48,16 @@ export default class QuestionsList extends React.Component {
       .map(function (item) { return item.description })[0];
   }
 
+  getQuestionVotes(id) {
+    return this.state.response.filter(function (item) { return item.id === id })
+      .map(function (item) { return item.totalVotes })[0];
+  }
+
   getData() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     const url = 'http://smartpol.40k.ro:4000/api';
     const query = {
-      "query": "{posts {id title description totalVotes insideOnly type answers {id description} comments {id description}}}",
+      "query": "{posts {id title description totalVotes insideOnly type answers {id description accepted totalVotes} comments {id description}}}",
       "operationName": null,
       "variables": null
     };
@@ -94,7 +99,6 @@ export default class QuestionsList extends React.Component {
   }
 
   render() {
-
     return (
       <View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
@@ -110,7 +114,9 @@ export default class QuestionsList extends React.Component {
             <TouchableOpacity onPress={() => {
               this.props.navigation.navigate('Question', {
                 question: {title: this.getResponse(rowData),
-                           description: this.getQuestionDescription(rowData)},
+                           description: this.getQuestionDescription(rowData),
+                           id: rowData,
+                           totalVotes: this.getQuestionVotes(rowData)},
                 answers: this.getAnswers(rowData),
                 comments: this.getComments(rowData)
               })
