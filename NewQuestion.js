@@ -20,12 +20,22 @@ export default class NewQuestion extends React.Component {
     }
 
     handlerPress() {
-        const query = { "query": "mutation {createPost (title: \"" + this.state.title + "\"" + 
-                                                ", description: \"" + this.state.description + "\"" + 
-                                                ", insideOnly: " + this.state.insideOnly + 
-                                                ", type: \"" + this.state.type + "\"" + 
-                                                ", userId: " + this.state.user_id + ") {id}", "operationName":null,"variable":null};
-        const url = 'https://smart-pol-api.herokuapp.com/api';
+        var title = this.state.title;
+        var description = this.state.description;
+        if(title && description){
+            const query = { 
+                "query": `
+                    mutation {
+                        createPost (
+                            title: "${this.state.title}", 
+                            description: "${this.state.description}", 
+                            insideOnly: ${this.state.insideOnly}, 
+                            type: ${this.state.type}, 
+                            userId: ${this.state.user_id}
+                        ) { id }
+                    }`
+                };
+        const url = 'http://smartpol.40k.ro:4000/api';
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -36,6 +46,7 @@ export default class NewQuestion extends React.Component {
             .then(data => {
                 console.log('Here is the data: ', data);
             });
+        }      
     }
 
     render() {
