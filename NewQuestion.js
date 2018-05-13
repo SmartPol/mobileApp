@@ -20,8 +20,11 @@ export default class NewQuestion extends React.Component {
     }
 
     handlerPress() {
-        const query = { "query": "mutation {createPost (title: \"laura2222\", description: \"lauraDescr2222\", insideOnly: false, type: QUESTION, userId: 1){id title}}", 
-        "operationName":null,"variable":null};
+        const query = { "query": "mutation {createPost (title: \"" + this.state.title + "\"" + 
+                                                ", description: \"" + this.state.description + "\"" + 
+                                                ", insideOnly: " + this.state.insideOnly + 
+                                                ", type: \"" + this.state.type + "\"" + 
+                                                ", userId: " + this.state.user_id + ") {id}", "operationName":null,"variable":null};
         const url = 'https://smart-pol-api.herokuapp.com/';
         fetch(url, {
             method: 'POST',
@@ -39,16 +42,14 @@ export default class NewQuestion extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <TextInput
-                    placeholder="Summary..."
-                    multiline={true}
-                    numberOfLines={5}
-                    editable
+                    onChangeText={(text) => this.setState({title: text})}
+                    placeholder="Title..."
                 />
                 <TextInput
+                    onChangeText={(text) => this.setState({description: text})}
                     placeholder="Description..."
                     multiline={true}
                     numberOfLines={5}
-                    editable={true}
                 />
                 <Button
                     title='Save'
