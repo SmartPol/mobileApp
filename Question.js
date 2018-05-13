@@ -128,7 +128,7 @@ export default class Question extends React.Component {
       <ScrollView behavior="padding" style={styles.container}>
         <View style={{flexDirection: "row"}}>
           <Voting id={this.state.question.id} totalVotes={this.state.question.totalVotes}/>
-          <View style={{margin: 20}}>
+          <View style={{margin: 20, paddingRight: 30}}>
             <Text style={{fontSize: 20, fontWeight: "bold"}}>{this.state.question.title}</Text>
             <Text>{this.state.question.description}</Text>
           </View>

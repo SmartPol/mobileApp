@@ -102,6 +102,7 @@ export default class Achievements extends React.Component {
             placeholder="Search..." />
         </View>
         <ListView style={{ marginTop: 10 }}
+          enableEmptySections={true}
           dataSource={this.state.data}
           renderRow={(rowData) =>
             <TouchableOpacity onPress={() => {

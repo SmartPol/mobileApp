@@ -11,6 +11,8 @@ import {
    ScrollView
 } from 'react-native';
 
+import { Constants, Speech } from 'expo';
+
 function votePost(id, voted) {
   const query = { "query": "mutation {updatePostVote (postId: "+ id +", increase: "+ voted +") {id}}", "operationName":null,"variable":null};
   const url = 'https://smart-pol-api.herokuapp.com/api';
@@ -45,7 +47,8 @@ class Voting extends React.Component {
   constructor(props){
     super(props);
     this.state = {totalVotes: props.totalVotes,
-                  voted: false};
+                  voted: false,
+                  question: props.question};
   }
 
   render() { return(
@@ -60,6 +63,11 @@ class Voting extends React.Component {
                                             votePost(this.props.id, false);
                                             this.setState({totalVotes: this.state.totalVotes - 1, voted: true});}}}>
           <Image style={{width: 30, height: 25}} source={require('./img/down.png')} resizeMode={"stretch"}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={{marginTop: -100}} onPress={ () => {
+          Speech.speak(this.state.question.description);
+        }}>
+          <Image resizeMode={"center"} style={{flex: 1, width: 50, height: 50 }} source={require('./img/speak.png')} />
         </TouchableOpacity>
       </View>
     );
@@ -103,13 +111,13 @@ export default class Article extends React.Component {
     return (
       <ScrollView behavior="padding" style={styles.container}>
         <View style={{flexDirection: "row"}}>
-          <Voting id={this.state.question.id} totalVotes={this.state.question.totalVotes}/>
-          <View style={{margin: 20}}>
+          <Voting id={this.state.question.id} totalVotes={this.state.question.totalVotes} question={this.state.question}/>
+          <View style={{margin: 20, paddingRight: 30}}>
             <Text style={{fontSize: 20, fontWeight: "bold"}}>{this.state.question.title}</Text>
             <Text>{this.state.question.description}</Text>
           </View>
         </View>
-        <View style={{marginLeft: 20, marginTop: 20}}>
+        <View style={{marginLeft: 20, marginTop: -30}}>
           <View style={{flexDirection: "row"}}>
             <Text style={{fontSize: 15, fontWeight: "bold"}}>Comments</Text>
             <TouchableOpacity style={{alignSelf: "flex-end"}} onPress={ () => this.setState({addComment: true})}>
