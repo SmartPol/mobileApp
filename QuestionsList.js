@@ -50,7 +50,7 @@ export default class QuestionsList extends React.Component {
 
   getData() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    const url = 'https://smart-pol-api.herokuapp.com/api';
+    const url = 'http://smartpol.40k.ro:4000/api';
     const query = {
       "query": "{posts {id title description totalVotes insideOnly type answers {id description} comments {id description}}}",
       "operationName": null,
