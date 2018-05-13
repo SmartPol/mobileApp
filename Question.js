@@ -103,7 +103,7 @@ export default class Question extends React.Component {
   sendAnswer(description) {
 
     const q = 'mutation{ createAnswer(title: "Answer", description: "'+ description +'", accepted: false, postId: "'+this.state.question.id+'", userId: 1){id description accepted totalVotes}}';
-    const url = 'http://smartpol.40k.ro:4000/api';
+    const url = 'https://smart-pol-api.herokuapp.com/api';
     const query = {
       "query": q,
       "operationName": null,

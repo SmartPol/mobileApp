@@ -55,7 +55,7 @@ export default class QuestionsList extends React.Component {
 
   getData() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    const url = 'http://smartpol.40k.ro:4000/api';
+    const url = 'https://smart-pol-api.herokuapp.com/api';
     const query = {
       "query": "{posts {id title description totalVotes insideOnly type answers {id description accepted totalVotes} comments {id description}}}",
       "operationName": null,
@@ -126,7 +126,7 @@ export default class QuestionsList extends React.Component {
                 height: 50
               }}>{this.getResponse(rowData)}</Text>
             </TouchableOpacity>} />
-        <TouchableOpacity style={styles.imageContainer} onPress={() =>{this.handleAddQuestion()}}>
+        <TouchableOpacity style={styles.addButton} onPress={() =>{this.handleAddQuestion()}}>
           <Image style={styles.imageContainer} source={require('./img/addbtn3.png')} />
          </TouchableOpacity>
         <Footer props={this.props} />
@@ -147,5 +147,10 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     alignSelf: 'flex-end',
+  },
+  addButton: {
+    position: "absolute",
+    right: 20,
+    bottom: 60
   }
 });

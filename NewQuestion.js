@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import Footer from "./Footer";
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Image } from 'react-native';
 
 export default class NewQuestion extends React.Component {
     static navigationOptions = {
@@ -10,8 +9,8 @@ export default class NewQuestion extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: 'lauraTitle',
-            description: 'lauraDescr',
+            title: '',
+            description: '',
             insideOnly: false,
             type: 'QUESTION',
             user_id: 1
@@ -23,19 +22,19 @@ export default class NewQuestion extends React.Component {
         var title = this.state.title;
         var description = this.state.description;
         if(title && description){
-            const query = { 
+            const query = {
                 "query": `
                     mutation {
                         createPost (
-                            title: "${this.state.title}", 
-                            description: "${this.state.description}", 
-                            insideOnly: ${this.state.insideOnly}, 
-                            type: ${this.state.type}, 
+                            title: "${this.state.title}",
+                            description: "${this.state.description}",
+                            insideOnly: ${this.state.insideOnly},
+                            type: ${this.state.type},
                             userId: ${this.state.user_id}
                         ) { id }
                     }`
                 };
-        const url = 'http://smartpol.40k.ro:4000/api';
+        const url = 'https://smart-pol-api.herokuapp.com/api';
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -46,39 +45,58 @@ export default class NewQuestion extends React.Component {
             .then(data => {
                 console.log('Here is the data: ', data);
             });
-        }      
+        }
     }
 
     render() {
+      debugger;
         return (
-            <View style={{ flex: 1 }}>
-                <TextInput
-                    onChangeText={(text) => this.setState({title: text})}
-                    placeholder="Title..."
-                />
-                <TextInput
-                    onChangeText={(text) => this.setState({description: text})}
-                    placeholder="Description..."
-                    multiline={true}
-                    numberOfLines={5}
-                />
-                <Button
-                    title='Save'
+           <View style={{flexDirection: "column"}}>
+            <TextInput
+              style={{margin: 20, backgroundColor: "white", padding: 10}}
+              placeholder="Title..."
+              onSubmitEditing={(e) => {if(e.nativeEvent.text === "") {
+
+                                      } else {
+                                        this.setState({title: e.nativeEvent.text});
+                                      }}}/>
+            <TextInput
+              style={{margin: 20, marginTop: 10, backgroundColor: "white", padding: 10, height: 100}}
+              placeholder="Description..."
+              onChangeText={(text) => {if(text === "") {
+
+                                      } else {
+                                        this.setState({description: text});
+                                      }}}
+              multiline={true}
+              numberOfLines={5}/>
+            <Button
+                    title='Submit'
                     style={{ fontSize: 20, color: 'blue' }}
                     styleDisabled={{ color: 'grey' }}
                     onPress={() => { this.handlerPress() }}>
-                </Button>
-            </View>
+            </Button>
+          </View>
         );
     }
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+// <View style={{ flex: 1 }}>
+//     <TextInput
+//         onChangeText={(text) => this.setState({title: text})}
+//         placeholder="Title..."
+//     />
+//     <TextInput
+//         onChangeText={(text) => this.setState({description: text})}
+//         placeholder="Description..."
+//         multiline={true}
+//         numberOfLines={5}
+//     />
+//     <Button
+//         title='Save'
+//         style={{ fontSize: 20, color: 'blue' }}
+//         styleDisabled={{ color: 'grey' }}
+//         onPress={() => { this.handlerPress() }}>
+//     </Button>
+// </View>
