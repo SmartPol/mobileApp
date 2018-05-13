@@ -85,7 +85,7 @@ export default class QuestionsList extends React.Component {
   filterSearch(text) {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     const newData = (this.state.response || []).filter(function (item) {
-      const itemData = item.description.toUpperCase()
+      const itemData = item.title.toUpperCase()
       const textData = text.toUpperCase()
       return itemData.indexOf(textData) > -1
     }).map(function (item) { return item.id; });

@@ -21,6 +21,7 @@ export default class NewQuestion extends React.Component {
     handlerPress() {
         var title = this.state.title;
         var description = this.state.description;
+
         if(title && description){
             const query = {
                 "query": `
@@ -35,6 +36,7 @@ export default class NewQuestion extends React.Component {
                     }`
                 };
         const url = 'https://smart-pol-api.herokuapp.com/api';
+        var self = this;
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -44,12 +46,12 @@ export default class NewQuestion extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log('Here is the data: ', data);
+                self.props.navigation.navigate('QuestionsList');
             });
         }
     }
 
     render() {
-      debugger;
         return (
            <View style={{flexDirection: "column"}}>
             <TextInput
@@ -61,7 +63,7 @@ export default class NewQuestion extends React.Component {
                                         this.setState({title: e.nativeEvent.text});
                                       }}}/>
             <TextInput
-              style={{margin: 20, marginTop: 10, backgroundColor: "white", padding: 10, height: 100}}
+              style={{margin: 20, backgroundColor: "white", padding: 10, height: 100}}
               placeholder="Description..."
               onChangeText={(text) => {if(text === "") {
 
