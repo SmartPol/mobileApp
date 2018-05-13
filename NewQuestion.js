@@ -25,7 +25,7 @@ export default class NewQuestion extends React.Component {
                                                 ", insideOnly: " + this.state.insideOnly + 
                                                 ", type: \"" + this.state.type + "\"" + 
                                                 ", userId: " + this.state.user_id + ") {id}", "operationName":null,"variable":null};
-        const url = 'https://smart-pol-api.herokuapp.com/';
+        const url = 'https://smart-pol-api.herokuapp.com/api';
         fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
