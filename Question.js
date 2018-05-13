@@ -24,10 +24,7 @@ export default class Question extends React.Component {
                   comments: this.props.navigation.state.params.comments,
                 translate: "Translate"}
   }
-  _speak = () => {
-    Speech.speak("Hello word");
-  }
-
+  
   render() {
     return (
       <View style={styles.container}>
@@ -46,7 +43,9 @@ export default class Question extends React.Component {
           {this.state.answers.map(function(item){ return <View style={{flexDirection: "row"}}><Voting/><Text key={item.id} style={{fontSize: 16, marginTop: 15}}>{item.description}</Text></View>})}
         </View>
         <View>
-          <Button onPress={this._speak}  title={this.state.translate}></Button>
+          <Button onPress={ () => {
+            Speech.speak("Hello word 2");
+          }}  title={this.state.translate}></Button>
         </View>
       </View>
      
